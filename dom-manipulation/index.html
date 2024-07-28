@@ -9,9 +9,11 @@
 <body>
     <div id="quote-app">
         <h1>Dynamic Quote Generator</h1>
-        <select id="categoryFilter" onchange="filterQuotes()">
+       <div style="display:flex;flex-direction: row;justify-content: space-around;">
+        <button id="syncQuotes">Sync Quotes</button> <select id="categoryFilter" onchange="filterQuotes()">
           <option value="all">All Categories</option>
         </select>
+      </div>
         <div  id="quoteDisplay">Click "Show New Quote" to display a quote</div>
 
         <button id="newQuote">Show New Quote</button>
@@ -22,11 +24,14 @@
           <button onclick="addQuote()">Add Quote</button>
           <div style="width: 50px;"></div>
           <button id="exportQuotes">Export Quotes</button>
+
         </div>
     <label for="importFile">Import Quotes</label>
     <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
   
         </div>
+        <div id="notification" style="display: none;"></div>
+        <div id="conflictNotification" style="display: none;padding: 15px;"></div>
       </div>
       <script src="script.js"></script>
 </body>
