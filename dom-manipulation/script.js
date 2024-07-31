@@ -63,7 +63,7 @@
         quoteDisplay.innerHTML = `"${randomQuote.text}" - ${randomQuote.category}`;
         sessionStorage.setItem('lastQuote', JSON.stringify(randomQuote));
       }
-    
+      // function createAddQuoteForm() {} , there is already addquote form given in the html
       window.addQuote = function() {
         const newQuoteText = document.getElementById('newQuoteText').value;
         const newQuoteCategory = document.getElementById('newQuoteCategory').value;
