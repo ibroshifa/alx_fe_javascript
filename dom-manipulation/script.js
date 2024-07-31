@@ -19,7 +19,7 @@
       
       newQuoteButton.addEventListener('click', showRandomQuote);
       exportQuotesButton.addEventListener('click', exportToJsonFile);
-      fetchQuotesFromServer.addEventListener('click', fetchQuotesFromServer);
+      fetchQuotesFromServerButton.addEventListener('click', fetchQuotesFromServer);
 
 
       window.filterQuotes = function() {
@@ -113,17 +113,25 @@
       }
     
     
-      function fetchQuotesFromServer() {
-        fetch(API_URL)
-          .then(response => response.json())
-          .then(serverQuotes => {
-            quotes = mergeQuotes(quotes, serverQuotes);
-            localStorage.setItem('idquotes', JSON.stringify(quotes));
-            saveQuotes();
-            notification.textContent = 'Quotes synced with server!';
-            notification.style.display = 'block';
-            setTimeout(() => notification.style.display = 'none', 3000);
-          });
+      async function fetchQuotesFromServer() {
+        try {//https://jsonplaceholder.typicode.com/posts"
+          const response = await fetch('https://run.mocky.io/v3/2b053ab6-b751-482c-8b24-cc012b09b7fc');
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const serverQuotes = await response.json();
+          quotes = mergeQuotes(quotes, serverQuotes);
+          localStorage.setItem('idquotes', JSON.stringify(quotes));
+          saveQuotes();
+          notification.textContent = 'Quotes synced with server!';
+          notification.style.display = 'block';
+          setTimeout(() => notification.style.display = 'none', 3000);
+        } catch (error) {
+          console.error('There was a problem fetching quotes:', error);
+          notification.textContent = 'Failed to sync quotes with server.';
+          notification.style.display = 'block';
+          setTimeout(() => notification.style.display = 'none', 3000);
+        }
       }
     
       function mergeQuotes(localQuotes, serverQuotes) {
