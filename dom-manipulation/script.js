@@ -12,14 +12,14 @@
      const quoteDisplay = document.getElementById('quoteDisplay');
       const newQuoteButton = document.getElementById('newQuote');
       const exportQuotesButton = document.getElementById('exportQuotes');
-      const syncQuotesButton = document.getElementById('syncQuotes');
+      const fetchQuotesFromServerButton = document.getElementById('syncQuotes');
       const categoryFilter = document.getElementById('categoryFilter');
       const notification = document.getElementById('notification');
       const conflictNotification = document.getElementById('conflictNotification');
       
       newQuoteButton.addEventListener('click', showRandomQuote);
       exportQuotesButton.addEventListener('click', exportToJsonFile);
-      syncQuotesButton.addEventListener('click', syncQuotes);
+      fetchQuotesFromServer.addEventListener('click', fetchQuotesFromServer);
 
 
       window.filterQuotes = function() {
@@ -113,7 +113,7 @@
       }
     
     
-      function syncQuotes() {
+      function fetchQuotesFromServer() {
         fetch(API_URL)
           .then(response => response.json())
           .then(serverQuotes => {
@@ -151,7 +151,7 @@
       }
     
       function periodicSync() {
-        setInterval(syncQuotes, 30000);  // Sync every 30 seconds
+        setInterval(fetchQuotesFromServer, 30000);  // Sync every 30 seconds
       }
       // Load last viewed quote from session storage
       const lastQuote = JSON.parse(sessionStorage.getItem('lastQuote'));
