@@ -30,9 +30,9 @@
         if (filteredQuotes.length) {
           const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
           const randomQuote = filteredQuotes[randomIndex];
-          quoteDisplay.textContent = `"${randomQuote.text}" - ${randomQuote.category}`;
+          quoteDisplay.innerHTML = `"${randomQuote.text}" - ${randomQuote.category}`;
         } else {
-          quoteDisplay.textContent = 'No quotes available for this category.';
+          quoteDisplay.innerHTML = 'No quotes available for this category.';
         }
       } 
     
@@ -43,7 +43,7 @@
     categories.forEach(category => {
       const option = document.createElement('option');
       option.value = category;
-      option.textContent = category;
+      option.innerHTML = category;
       categoryFilter.appendChild(option);
     });
 
@@ -60,7 +60,7 @@
         const filteredQuotes = quotes.filter(quote => categoryFilter.value === 'all' || quote.category === categoryFilter.value);
     const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
     const randomQuote = filteredQuotes[randomIndex];
-        quoteDisplay.textContent = `"${randomQuote.text}" - ${randomQuote.category}`;
+        quoteDisplay.innerHTML = `"${randomQuote.text}" - ${randomQuote.category}`;
         sessionStorage.setItem('lastQuote', JSON.stringify(randomQuote));
       }
     
@@ -78,7 +78,7 @@
           if (!Array.from(categoryFilter.options).some(option => option.value === newQuoteCategory)) {
             const option = document.createElement('option');
             option.value = newQuoteCategory;
-            option.textContent = newQuoteCategory;
+            option.innerHTML = newQuoteCategory;
             categoryFilter.appendChild(option);
           }
         } else {
@@ -123,12 +123,12 @@
           quotes = mergeQuotes(quotes, serverQuotes);
           localStorage.setItem('idquotes', JSON.stringify(quotes));
           saveQuotes();
-          notification.textContent = 'Quotes synced with server!';
+          notification.innerHTML = 'Quotes synced with server!';
           notification.style.display = 'block';
           setTimeout(() => notification.style.display = 'none', 3000);
         } catch (error) {
           console.error('There was a problem fetching quotes:', error);
-          notification.textContent = 'Failed to sync quotes with server.';
+          notification.innerHTML = 'Failed to sync quotes with server.';
           notification.style.display = 'block';
           setTimeout(() => notification.style.display = 'none', 3000);
         }
@@ -152,7 +152,7 @@
         }); 
         newAdded = serverQuotes.length- updated;
        // updated = serverQuotesMap.length - newAdded;
-        conflictNotification.textContent = `${newAdded} newly added and ${updated} Updated!`;
+        conflictNotification.innerHTML = `${newAdded} newly added and ${updated} Updated!`;
         conflictNotification.style.display = 'block';
             setTimeout(() => conflictNotification.style.display = 'none', 3000);
         return Array.from(serverQuotesMap.values());
@@ -164,7 +164,7 @@
       // Load last viewed quote from session storage
       const lastQuote = JSON.parse(sessionStorage.getItem('lastQuote'));
       if (lastQuote) {
-        quoteDisplay.textContent = `"${lastQuote.text}" - ${lastQuote.category}`;
+        quoteDisplay.innerHTML = `"${lastQuote.text}" - ${lastQuote.category}`;
       }
     });
     
