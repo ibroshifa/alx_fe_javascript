@@ -87,6 +87,7 @@
       }
     
       function saveQuotes() {
+        sendDataToServer(quotes);
         localStorage.setItem('idquotes', JSON.stringify(quotes));
       }
     
@@ -165,6 +166,28 @@
       const lastQuote = JSON.parse(sessionStorage.getItem('lastQuote'));
       if (lastQuote) {
         quoteDisplay.innerHTML = `"${lastQuote.text}" - ${lastQuote.category}`;
+      }
+
+      async function sendDataToServer(data) {
+        try {
+          const response = await fetch(API_URL, {
+            method: 'POST', // HTTP method
+            headers: {
+              'Content-Type': 'application/json', 
+              
+            },
+            body: JSON.stringify(data) // Converting data to JSON string for the request body
+          });
+      
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+      
+          const result = await response.json();
+          console.log('Data sent successfully:', result);
+        } catch (error) {
+          console.error('There was a problem with the request:', error);
+        }
       }
     });
     
