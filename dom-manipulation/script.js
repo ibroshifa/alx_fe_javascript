@@ -78,7 +78,7 @@
           if (!Array.from(categoryFilter.options).some(option => option.value === newQuoteCategory)) {
             const option = document.createElement('option');
             option.value = newQuoteCategory;
-            option.innerHTML = newQuoteCategory;
+            option.textContent = newQuoteCategory;
             categoryFilter.appendChild(option);
           }
         } else {
